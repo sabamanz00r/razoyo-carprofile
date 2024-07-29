@@ -21,17 +21,25 @@ Key features:
 
 Module Installation
 
-Download the extension and Unzip the files in a temporary directory
+Install the extension by executing the following command:
+
+`composer require razoyo/module-carprofile`
+
+OR
+
+Download the extension and Unzip the files in `app/code/Razoyo/CarProfile`
 
 Upload it to your Magento installation root directory
 
+Then
+
 Execute the following commands respectively:
 
-1.  php bin/magento module:enable Razoyo_CarProfile
+1.  `php bin/magento module:enable Razoyo_CarProfile`
 
-2.  php bin/magento setup:upgrade
+2.  `php bin/magento setup:upgrade`
 
-3.  php bin/magento setup:di:compile
+3.  `php bin/magento setup:di:compile`
 
 Refresh the Cache under System ⇾ Cache Management
 
