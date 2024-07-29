@@ -1,0 +1,24 @@
+{
+    "name": "razoyo/module-carprofile",
+    "description": "Razoyo Car Profile Extension",
+    "type": "razoyo-magento2-module",
+    "authors": [{
+        "name": "Saba Manzoor",
+        "email": "sabamanz00r226@gmail.com",
+        "role": "developer"
+    }],
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Razoyo\\CarProfile\\": ""
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

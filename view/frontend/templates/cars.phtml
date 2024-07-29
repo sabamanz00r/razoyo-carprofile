@@ -1,0 +1,41 @@
+<?php
+/** @var Cars $block */
+/** @var Escaper $escaper */
+use Magento\Framework\Escaper;
+use Razoyo\CarProfile\Block\Cars;
+$filter = $block->getData('filter');
+$cars = $block->getCarsList($filter);
+$customerCar = $block->getCustomerCar();
+?>
+<?php if (is_array($cars) && count($cars) > 0): ?>
+    <div class="dropdown">
+        <label for="cars">Filter By Make:</label>
+        <select name="cars" id="cars">
+            <option value="all">All</option>
+            <?php foreach ( $cars['makes'] as $key => $car ): ?>
+                <option value="<?= $escaper->escapeHtmlAttr($car) ?>" <?= $filter == $car ? 'selected' : '' ?>><?= $escaper->escapeHtml($car) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <?php foreach ( $cars['cars'] as $key => $car ): ?>
+        <?php if ($car['id'] && $customerCar !== $car['id']): ?>
+            <div  class="car-content">
+                <div class="car-detail">
+                    <div data-role="title" class="title">
+                        <h4><?= $escaper->escapeHtml($car['make'].' ' .$car['model'].' ' .$car['year']) ?></h4>
+                    </div>
+                    <div data-role="content">
+                    </div>
+                    <a href="<?= $escaper->escapeUrl($block->getUrl('mycar/index/getCar', ['_current' => true,'_use_rewrite' => true, '_query' => ['car-id' => $car['id'], 'make' => $car['make'] ]])) ?>" data-ajax=true></a>
+                </div>
+                <div class="save-car-actions">
+                    <button class="action save" id="save" data-role="action" data-car-id="<?= $car['id'] ?>" data-action-name="save">
+                        <span><?= $block->escapeHtml(__('Select Car')) ?></span>
+                    </button>
+                </div>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php else: ?>
+    <span><?= $escaper->escapeHtml(__('We can\'t find any cars matching your selection.')) ?></span>
+<?php endif; ?>

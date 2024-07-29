@@ -1,0 +1,47 @@
+<?php
+/** @var Escaper $escaper */
+/** @var Car $viewModel */
+use Magento\Framework\Escaper;
+use Razoyo\CarProfile\ViewModel\Car;
+$viewModel = $block->getData('car_view_model');
+$customerCar = $viewModel->getCustomerCar();
+$isCarSelected = false;
+?>
+<?php if($customerCar):
+    $isCarSelected = true; ?>
+    <div id="my-car" class="my-car">
+        <div data-role="content">
+            <div class="image">
+                <img src="<?= $escaper->escapeUrl($customerCar['car']['image']) ?>" width="300">
+            </div>
+            <ul class="content">
+                <li><span><?= $escaper->escapeHtml(__('MAKE:')) ?> </span> <?= $escaper->escapeHtml($customerCar['car']['make']) ?></li>
+                <li><span><?= $escaper->escapeHtml(__('MODEL:')) ?> </span> <?= $escaper->escapeHtml($customerCar['car']['model']) ?></li>
+                <li><span><?= $escaper->escapeHtml(__('YEAR:')) ?> </span> <?= $escaper->escapeHtml($customerCar['car']['year']) ?></li>
+                <li><span><?= $escaper->escapeHtml(__('SEATS:')) ?> </span> <?= $escaper->escapeHtml($customerCar['car']['seats']) ?></li>
+                <li><span><?= $escaper->escapeHtml(__('PRICE:')) ?> </span> <?= $escaper->escapeHtml($customerCar['car']['price']) ?></li>
+                <li><span><?= $escaper->escapeHtml(__('MPG:')) ?> </span> <?= $escaper->escapeHtml($customerCar['car']['mpg']) ?></li>
+            </ul>
+
+            <div class="change-car-action">
+                <input type="checkbox" id="change-car" name="change-car" value="0">
+                <label for="change-car"><?= $escaper->escapeHtml(__('Change My Car')) ?></label>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<div id="cars-block" class="cars-block">
+</div>
+<?php
+$url = $block->getUrl('mycar/index/cars');
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "cars": {
+                "url":"<?= $escaper->escapeUrl($url) ?>",
+                "is_car":"<?= $escaper->escapeHtml($isCarSelected) ?>"
+            }
+        }
+    }
+</script>
